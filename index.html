@@ -5,21 +5,75 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>tree</title>
 	<style>
-		html,body,div,svg{
+		html,body,div,svg,img,span,ul,li{
 			padding:0;
 			margin:0;
 		}
+		img{
+			border:none 0;
+		}
+		a{
+			text-decoration: none;
+		}
+		ul{
+			list-style: none;
+		}
 		html,body{
 			width:100%;
+			font-size: 14px;
 		}
-		.header{
-			height:60px;
-			width:100%;
-			background: #ccc;
+		.clearfix{
+			clear:both;
+		}
+		.topbar{
+			height: 42px;
+			line-height: 42px;
+			background: #383a4c;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
 			min-width: 980px;
+			z-index: 20;
+			transform: translateZ(0);
 		}
+		.fl{
+			float:left;
+		}
+		.fr{
+			float: right;
+		}
+		.userInfo,.contrl_container{
+			line-height: 42px;
+    		color: #fff;
+		}
+		.userInfo .s_avator{
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			position: relative;
+			top: 7px;
+			margin-left: 14px;
+			margin-right: 6px;
+			vertical-align: top;
+		}
+		.userInfo .username {
+		    margin-right: 6px;
+		}
+		.contrl_container a {
+			color: #fff;
+			display: inline-block;
+			height: 42px;
+			line-height: 42px;
+			padding-right: 40px;
+			margin-left: 10px;
+			background: url(./ico_logout.png) no-repeat 30px center;
+		}
+
 		.content{
-			position:relative;
+			position:absolute;
+			top:42px;
+			left:0;
 			width:100%;
 			min-width: 980px;
 		}
@@ -27,30 +81,33 @@
 			position: absolute;
 			top:0;
 			left:0;
-			width:300px;
+			width:270px;
 			height: 100%;
+		}
+		.title{
+			height:60px;
+			border-bottom: 1px solid #000;
+			line-height: 60px;
+			margin-left: 10px;
+			font-size: 20px;
 		}
 		.right{
 			position: absolute;
 			top:0;
 			left:300px;
 			height:100%;
-			border-left:1px solid #ccc;
 		}
 		.node {
 			cursor: pointer;
 		}
-
 		.node circle {
 			fill: #fff;
 			stroke: steelblue;
 			stroke-width: 1.5px;
 		}
-
 		.node text {
 			font: 10px sans-serif;
 		}
-
 		.link {
 			fill: none;
 			stroke: #ccc;
@@ -59,19 +116,50 @@
 	</style>
 </head>
 <body>
-	<div class="header">我是顶部</div>
+	<div class="topbar clearfix">
+		<div class="fl userInfo">
+			<img src="./img_a.png" class="s_avator" alt="">
+			<span class="username">欢迎张力阳</span>
+		</div>
+		<div class="contrl_container fr">
+			<a href="../logout">退出</a>
+		</div>
+	</div>
 	<div class="content">
-		<div class="left">我是目录</div>
+		<div class="left">
+			<div class="title">2017/3/27 ~ 2017/4/2</div>
+			<div>
+				<ul>
+					<li>公众号1</li>
+					<li>
+						公众号
+						<ul>
+							<li>公众号1</li>
+							<li>公众号2</li>
+							<li>公众号3</li>
+							<li>公众号4</li>
+							<li>公众号5</li>
+						</ul>
+					</li>
+					<li>公众号2</li>
+					<li>公众号3</li>
+					<li>公众号4</li>
+					<li>公众号5</li>
+				</ul>
+			</div>
+		</div>
 		<div class="right">
+			<div class="title">文章传播路径图</div>
 			<div id="right" class="main"></div>
 		</div>
 	</div>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="./v3.min.js"></script>
+	<script src="./flare.js" ></script>
 	<script>
 		var CHeight = document.documentElement.clientHeight;
 		document.querySelector('.content').style.height = CHeight - 60 + 'px';
 
-		var margin = {top: 20, right: 120, bottom: 20, left: 120},
+		var margin = {top: 20, right: 120, bottom: 20, left: 80},
 			width = 960 - margin.right - margin.left,
 			height = 800 - margin.top - margin.bottom;
 

@@ -1,4 +1,4 @@
-{
+var flare = {
   "name": "flare",
   "children": [{
     "name": "analytics",
