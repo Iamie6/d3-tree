@@ -9,7 +9,16 @@
         "children": [{
           "name": "BetweennessCentrality"
         }, {
-          "name": "LinkDistance"
+          "name": "LinkDistance",
+          "children": [
+            {
+              "name": "BetweennessCentrality",
+              "children":[
+                {"name": "BetweennessCentrality"}
+              ]
+            },
+            {"name": "BetweennessCentrality"}
+          ]
         }, {
           "name": "MaxFlowMinCut"
         }, {

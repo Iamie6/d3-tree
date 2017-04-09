@@ -5,12 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>tree</title>
 	<style>
-		html,body,div,svg,img,span,ul,li{
+		html,body,div,svg,img,span,ul,li,p{
 			padding:0;
 			margin:0;
 		}
 		img{
 			border:none 0;
+			display: block;
 		}
 		a{
 			text-decoration: none;
@@ -20,7 +21,10 @@
 		}
 		html,body{
 			width:100%;
+			height: 100%;
+			overflow: hidden;
 			font-size: 14px;
+			font-family: Tahoma,"\5FAE\8F6F\96C5\9ED1","Microsoft Yahei","hiragino sans gb", Helvetica, Arial, "\5b8b\4f53", sans-serif;
 		}
 		.clearfix{
 			clear:both;
@@ -71,32 +75,50 @@
 		}
 
 		.content{
-			position:absolute;
-			top:42px;
-			left:0;
+			position: relative;
+			margin-top:42px;
 			width:100%;
-			min-width: 980px;
+			min-width: 1200px;
 		}
 		.left{
-			position: absolute;
-			top:0;
-			left:0;
-			width:270px;
-			height: 100%;
+			float: left;
+			width:26%;
+			/* min-width: 354px; */
+			margin-left:30px;
 		}
 		.title{
 			height:60px;
 			border-bottom: 1px solid #000;
-			line-height: 60px;
-			margin-left: 10px;
+			line-height: 70px;
 			font-size: 20px;
 		}
-		.right{
-			position: absolute;
-			top:0;
-			left:300px;
-			height:100%;
+		.listTile{
+			float: right;
+			width:27px;
+			height: 27px;
+			margin-top:20px;
+			background: url(./modify.png) no-repeat;
+			cursor: pointer;
 		}
+		.cutTitle{
+			float: right;
+			width:30px;
+			height: 30px;
+			margin-top:18px;
+			background: url(./cut.png) no-repeat;
+			cursor: pointer;
+		}
+		.right{
+			width:69%;
+			/* min-width: 920px; */
+			margin-left:30px;
+			float: left;
+		}
+		.main{
+			overflow: hidden;
+			background: #fcfcfc;
+		}
+		/* 图的样式 */
 		.node {
 			cursor: pointer;
 		}
@@ -113,6 +135,72 @@
 			stroke: #ccc;
 			stroke-width: 1.5px;
 		}
+		/* 文字的样式 */
+		.world-tree{
+			padding-left: 10px;
+			position: relative;
+			height:1000px;
+			width:346px;
+			overflow: auto;
+			background: #fcfcfc;
+		}
+		.world-tree ul{
+			margin-left: 10px;
+		}
+		.world-tree li{
+			line-height: 24px;
+			height: 24px;
+			position: relative;
+			overflow: hidden;
+		}
+		.n,.y{
+			padding-left:10px;
+		}
+		.world-tree li.n:after{
+			content: "-";
+			position: absolute;
+			top:0;
+			left:0;
+			color: #000;
+		}
+		.world-tree li.y:after{
+			content: "+";
+			position: absolute;
+			top:0;
+			left:0;
+			color: #000;
+		}
+		/* 名片 */
+		.card{
+			position: absolute;
+			top:100px;
+			left:100px;
+			z-index: 10;
+			width:300px;
+			border:1px solid #000;
+			background: #fff;
+			display: none;
+		}
+		.card .pic{
+			float:left;
+			width:80px;
+			height: 80px;
+			padding:10px;
+		}
+		.card .msg{
+			float: left;
+			padding:10px;
+			padding-left:0px;
+		}
+		.msg p{
+			width:190px;
+			white-space:nowrap; 
+			overflow:hidden; 
+			text-overflow:ellipsis;
+		}
+		.msg p span{
+			margin-right: 10px;
+		}
 	</style>
 </head>
 <body>
@@ -126,13 +214,15 @@
 		</div>
 	</div>
 	<div class="content">
-		<div class="left">
-			<div class="title">2017/3/27 ~ 2017/4/2</div>
-			<div>
-				<ul>
-					<li>公众号1</li>
-					<li>
-						公众号
+		<div class="left clearfix">
+			<div class="title">文章列表
+				<span class="listTile"></span>
+			</div>
+			<div class="world-tree" id="treeBox">
+				<ul  id="worldTree">
+				<!-- 	<li class="n">公众号1</li>
+					<li class="y">
+						<p>公众号<p>
 						<ul>
 							<li>公众号1</li>
 							<li>公众号2</li>
@@ -144,44 +234,89 @@
 					<li>公众号2</li>
 					<li>公众号3</li>
 					<li>公众号4</li>
-					<li>公众号5</li>
+					<li>公众号5</li> -->
 				</ul>
 			</div>
 		</div>
 		<div class="right">
-			<div class="title">文章传播路径图</div>
+			<div class="title">文章传播路径图
+				<span class="cutTitle"></span>
+			</div>
 			<div id="right" class="main"></div>
 		</div>
+	</div>
+	<div class="card" id="card">
+		<img class="pic" src="img_a.png" alt="">
+		<div class="msg"><p><span>微信:</span><span id="weixin">aarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrraaaa</span></p>
+		<p><span>电话:</span><span id="tel">123445</span></p>
+		<p><span>时间:</span><span id="time">aaaaaaa</span></p>
+		<p><span>贡献数:</span><span id="num">34</span></p>
+		<p><span>客户类型:</span><span id="type">absddsf</span></p></div>
 	</div>
 	<script src="./v3.min.js"></script>
 	<script src="./flare.js" ></script>
 	<script>
 		var CHeight = document.documentElement.clientHeight;
-		document.querySelector('.content').style.height = CHeight - 60 + 'px';
+		var worldTreeBox = document.getElementById('treeBox');
+		var right = document.getElementById('right'); 
+ 		treeBox.style.height = CHeight - 60 -  46 + 'px';
+ 		right.style.height = CHeight - 60 - 46 + 'px';
+		//document.querySelector('.content').style.height = CHeight - 60 + 'px';
+		var card = document.getElementById('card');
+		var weixin = document.getElementById('weixin');
+		var tel = document.getElementById('tel');
+		var time = document.getElementById('time');
+		var num = document.getElementById('num');
+		var type = document.getElementById('type');
 
 		var margin = {top: 20, right: 120, bottom: 20, left: 80},
 			width = 960 - margin.right - margin.left,
-			height = 800 - margin.top - margin.bottom;
+			height = CHeight - 60 - 46 - margin.top - margin.bottom;
 
-		var i = 0,duration = 750,root;
+		var i = 0,duration = 350,root,heightNum = [],big = 0;
 
-		var tree = d3.layout.tree()
-					.size([height, width]);
+		var tree = d3.layout.tree();
 
 		var diagonal = d3.svg.diagonal()
 						.projection(function(d) { return [d.y, d.x]; });
-
+		var drag = d3.behavior.drag();
 		var svg = d3.select("#right").append("svg")
+					.call(drag)
 					.attr("width", width + margin.right + margin.left)
 					.attr("height", height + margin.top + margin.bottom)
 					.append("g")
 					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		var startX = margin.left;
+		var startY = margin.top;
+		var x = 0;
+		var y = 0; 
+		var moveX,moveY;
+		drag.on('dragstart',function(){
+			x = d3.event.sourceEvent.pageX;
+			y = d3.event.sourceEvent.pageY;
+		})
+		drag.on('drag',function(){
+			moveX = d3.event.sourceEvent.pageX - x + startX;
+			moveY = d3.event.sourceEvent.pageY - y + startY;
+			svg.attr("transform","translate(" + moveX + "," + moveY + ")");
+		})
+		drag.on('dragend',function(){
+			startY = moveY || startY;
+			startX = moveX || startX;
+		})
 
 		d3.json("flare.json", function(error, flare) {
 			if (error) throw error;
 			root = flare;
 			root.x0 = height / 2;
 			root.y0 = 0;
+			var len = root.children.length
+			if(len*20 > height){
+				tree.size([len*20, width])
+			}else{
+				tree.size([height, width])
+			}
 
 			function collapse(d) {
 				if (d.children) {
@@ -193,19 +328,41 @@
 
 			root.children.forEach(collapse);
 			update(root);
+			var parent = document.getElementById('worldTree');
+			createTree(root,parent)
 		});
 
 		d3.select(self.frameElement).style("height", "800px");
-
 		function update(source) {
-
 			// Compute the new tree layout.
 			var nodes = tree.nodes(root).reverse(),
 			links = tree.links(nodes);
 
+			var num = source.depth;
+			if(source.children){
+				if(heightNum[num]){
+					heightNum[num] += source.children.length;
+				}else{
+					heightNum[num] = source.children.length;
+				}
+			}else if(source._children){
+				if(heightNum[num]){
+					heightNum[num] -= source._children.length;
+				}
+			}
+
+			var newBig = findBig(heightNum);
+
+			if(newBig !== big){
+				big = newBig;
+				if(20*big > height){
+					tree.size([20*big, width]);
+					console.log(big)
+				}
+			}
+			
 			// Normalize for fixed-depth.
 			nodes.forEach(function(d) { d.y = d.depth * 180; });
-
 			// Update the nodes…
 			var node = svg.selectAll("g.node")
 						.data(nodes, function(d) { return d.id || (d.id = ++i); });
@@ -215,7 +372,7 @@
 							.attr("class", "node")
 							.attr("transform", function(d) { 
 								return "translate(" + source.y0 + "," + source.x0 + ")"; 
-							}).on("click", click);
+							}).on("click", click).on("mouseover",hover).on("mouseout",out);
 
 			nodeEnter.append("circle")
 				.attr("r", 1e-6)
@@ -297,6 +454,80 @@
 				d._children = null;
 			}
 			update(d);
+			upTree(d);
+		}
+
+		function createTree(d,parent){
+			//1 关闭状态   2 打开状态
+			var li = document.createElement('li');
+			if(d.children && d.children.length >0){
+				var ul = document.createElement('ul');
+				li.innerHTML= "<p>" + d.name + "</p>";
+				li.appendChild(ul);
+				li.className = 'y';
+				d.ele = li;
+				li.style.height = 'auto';
+				for(var i = 0; i < d.children.length; i++){
+					createTree(d.children[i],ul);
+				}
+			}else if(d._children && d._children.length > 0){
+				var ul = document.createElement('ul');
+				li.innerHTML= "<p>" + d.name + "</p>";
+				li.appendChild(ul);
+				li.className = 'y';
+				d.ele = li;
+				for(var i = 0; i < d._children.length; i++){
+					createTree(d._children[i],ul);
+				}
+			}else{
+				li.innerHTML = d.name;
+				li.className = 'n'
+			}
+			li.onclick = function(ev){
+				ev.cancelBubble = true;
+				click(d)
+			};
+			parent.appendChild(li)
+		}
+
+		function upTree(d){
+			if(d._children){
+				d.ele.style.height = '24px';
+			}else if(d.children){
+				d.ele.style.height = 'auto';
+			}
+		}
+
+		var timer = null;
+		function hover(d){
+			clearTimeout(timer)
+			var ev =d3.event;
+			weixin.innerHTML = d.weixin || "";
+			tel.innerHTML = d.tel || "";
+			num.innerHTML = d.num || "";
+			type.innerHTML = d.type || "";
+			time.innerHTML = d.time || "";
+
+			card.style.top = ev.pageY + 10 + "px";
+			card.style.left = ev.pageX + 10 + "px";
+
+			card.style.display = 'block';
+		}
+		function out(){
+			timer = setTimeout(function(){
+				card.style.display = "none";
+			},300)
+		}
+		function findBig(arr){
+			var big = arr[0] || 1;
+			for(var i = 1; i < arr.length; i++){
+				if(arr[i]==0){
+					return big;
+				}else if(arr[i] > big){
+					big = arr[i];
+				}
+			}
+			return big;
 		}
 	</script>
 </body>
