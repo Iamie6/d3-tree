@@ -92,14 +92,14 @@
 			line-height: 70px;
 			font-size: 20px;
 		}
-		.listTile{
+		/* .listTile{
 			float: right;
 			width:27px;
 			height: 27px;
 			margin-top:20px;
 			background: url(./modify.png) no-repeat;
 			cursor: pointer;
-		}
+		} */
 		.cutTitle{
 			float: right;
 			width:30px;
@@ -141,17 +141,32 @@
 			position: relative;
 			height:1000px;
 			width:346px;
-			overflow: auto;
-			background: #fcfcfc;
+			overflow: hidden;
+			background: #f1f1f1;
 		}
 		.world-tree ul{
 			margin-left: 10px;
+			padding-top:10px;
+
 		}
 		.world-tree li{
-			line-height: 24px;
-			height: 24px;
-			position: relative;
 			overflow: hidden;
+			padding-top:20px;
+			height:86px;
+			width:316px;
+			border-bottom:1px dashed #ccc;
+		}
+		.world-tree li img{
+			display:block;
+			border:0;
+			float:left;
+			width:66px;
+			height:66px;
+		}
+		.world-tree li p{
+			float:left;
+			width:240px;
+			padding-left:10px;
 		}
 		.n,.y{
 			padding-left:10px;
@@ -176,21 +191,20 @@
 			top:100px;
 			left:100px;
 			z-index: 10;
-			width:300px;
-			border:1px solid #000;
-			background: #fff;
+			width:310px;
+			border:1px solid #ccc;
+			background: #f4f4f4;
 			display: none;
 		}
 		.card .pic{
 			float:left;
-			width:80px;
-			height: 80px;
+			width:90px;
+			height: 90px;
 			padding:10px;
 		}
 		.card .msg{
 			float: left;
-			padding:10px;
-			padding-left:0px;
+			padding-top:8px;
 		}
 		.msg p{
 			width:190px;
@@ -200,6 +214,12 @@
 		}
 		.msg p span{
 			margin-right: 10px;
+		}
+		.msg p span b{
+			padding-left:28px;
+		}
+		.msg p span strong{
+			padding-left:7px;
 		}
 	</style>
 </head>
@@ -214,12 +234,29 @@
 		</div>
 	</div>
 	<div class="content">
+		<!--list-->
 		<div class="left clearfix">
 			<div class="title">文章列表
-				<span class="listTile"></span>
+				<!-- <span class="listTile"></span> -->
 			</div>
 			<div class="world-tree" id="treeBox">
 				<ul  id="worldTree">
+					<li>
+						<image src="img_a.png"/>
+						<p>蕾哈娜加州别墅二度挂牌出售喜欢这样“老气”的地中海风格。</p>
+					</li>
+					<li>
+						<image src="img_a.png"/>
+						<p>蕾哈娜加州别墅二度挂牌出售喜欢这样“老气”的地中海风格。</p>
+					</li>
+					<li>
+						<image src="img_a.png"/>
+						<p>蕾哈娜加州别墅二度挂牌出售喜欢这样“老气”的地中海风格。</p>
+					</li>
+					<li>
+						<image src="img_a.png"/>
+						<p>蕾哈娜加州别墅二度挂牌出售喜欢这样“老气”的地中海风格。</p>
+					</li>
 				<!-- 	<li class="n">公众号1</li>
 					<li class="y">
 						<p>公众号<p>
@@ -238,6 +275,7 @@
 				</ul>
 			</div>
 		</div>
+		<!--tree-->
 		<div class="right">
 			<div class="title">文章传播路径图
 				<span class="cutTitle"></span>
@@ -245,12 +283,13 @@
 			<div id="right" class="main"></div>
 		</div>
 	</div>
+	<!--nameCard-->
 	<div class="card" id="card">
 		<img class="pic" src="img_a.png" alt="">
-		<div class="msg"><p><span>微信:</span><span id="weixin">aarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrraaaa</span></p>
-		<p><span>电话:</span><span id="tel">123445</span></p>
-		<p><span>时间:</span><span id="time">aaaaaaa</span></p>
-		<p><span>贡献数:</span><span id="num">34</span></p>
+		<div class="msg"><p><span>微<b></b>信:</span><span id="weixin">aarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrraaaa</span></p>
+		<p><span>电<b></b>话:</span><span id="tel">123445</span></p>
+		<p><span>时<b></b>间:</span><span id="time">aaaaaaa</span></p>
+		<p><span>贡<strong></strong>献<strong></strong>数:</span><span id="num">34</span></p>
 		<p><span>客户类型:</span><span id="type">absddsf</span></p></div>
 	</div>
 	<script src="./v3.min.js"></script>
@@ -516,7 +555,7 @@
 		function out(){
 			timer = setTimeout(function(){
 				card.style.display = "none";
-			},300)
+			},300);
 		}
 		function findBig(arr){
 			var big = arr[0] || 1;
